@@ -1,10 +1,19 @@
 package blockchain;
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Miner {
+    private int ID;
+
+    Miner(int ID){
+        this.ID = ID;
+    }
+
+    public int getID() { return ID; }
+
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public ExecutorService getExecutor() {
@@ -35,7 +44,7 @@ class BruteForceHash implements Runnable {
             if (Main.generated.contains(magicNumber))
                 continue;
             Main.generated.add(magicNumber);
-            hashToTry = blockData + block.getHashOfPrevBlock() + magicNumber;
+            hashToTry = blockData + magicNumber;
             thisHash = StringUtil.applySha256(hashToTry);
             if (BCValidation.tryHash(thisHash, complexity)) {
                 long endTime = System.nanoTime();

@@ -10,8 +10,11 @@ public class Main {
     private static final String FILE_NAME = "BlockChain.data";
     private static final int MINERS_NUMBER = 10;
     private static final int START_COMPLEXITY = 0;
-    private static final long INCREASE_TRIGGER = 1L; // complexity-increase trigger (in seconds, exclusive)
-    private static final long DECREASE_TRIGGER = 2L; // complexity-decrease trigger (in seconds, exclusive)
+    private static final long INCREASE_TRIGGER = 1L; // complexity-increase trigger (in seconds, inclusive)
+    private static final long DECREASE_TRIGGER = 2L; // complexity-decrease trigger (in seconds, inclusive)
+
+    // Miners storage
+    private static List<Miner> miners = new ArrayList<>();
 
     public static BlockChain blockChain = null;
     private static volatile boolean createdBlock = false;
@@ -32,9 +35,11 @@ public class Main {
     }
 
     public static synchronized void invokeAdder(Block block) {
-        if (!createdBlock)
-            blockChain.addBlock(block);
-        Main.setCreatedBlock(true);
+        if (!createdBlock) {
+            if (BCValidation.tryHash(block.getHashOfThisBlock(), blockChain.getComplexity()))
+                blockChain.addBlock(block);
+            createdBlock = true;
+        }
     }
 
     public static void main(String[] args) {
@@ -64,10 +69,9 @@ public class Main {
             prevHash = "0";
         else
             prevHash = blockChain.getBlockChain().get(bcSize - 1).getHashOfThisBlock();
-        // Suppose we have 10 miners (threads) in the network
-        Miner[] miners = new Miner[MINERS_NUMBER];
+        // Miners creation
         for (int i = 0; i < MINERS_NUMBER; i++) {
-            miners[i] = new Miner();
+            miners.add(new Miner(i));
         }
         // Creating/Adding Blocks (+5 blocks)
         for (int i = bcSize; i < bcSize + 5; i++) {
@@ -75,31 +79,30 @@ public class Main {
             String blockData = String.valueOf(new Random().nextLong());
             Block block = new Block(i, prevHash, curComplexity);
             // Miners invocation, Hash Brute-force
-            for (int j = 0; j < miners.length; j++) {
-                miners[j].getExecutor().submit(new BruteForceHash(j, curComplexity, blockData, block));
+            for (int j = 0; j < miners.size(); j++) {
+                miners.get(j).getExecutor().submit(new BruteForceHash(miners.get(j).getID(), curComplexity,
+                                                blockData + block.getHashOfPrevBlock(), block));
             }
             // Wait until the block is forged and all miners to be returned from the task
             while (!createdBlock || minersDone != MINERS_NUMBER) {}
             // Complexity adjustment
-            if (blockChain.getBlockChain().size() != 0){
-                if (blockChain.getBlockChain().get(blockChain.getBlockChain().size() - 1).getCreationTime() < INCREASE_TRIGGER)
-                    blockChain.setComplexity(curComplexity + 1);
-                else if (blockChain.getBlockChain().get(blockChain.getBlockChain().size() - 1).getCreationTime() > DECREASE_TRIGGER)
-                    blockChain.setComplexity(curComplexity - 1);
-                curComplexity = blockChain.getComplexity();
-                blockChain.getBlockChain().get(blockChain.getBlockChain().size() - 1).setCurComplexity(curComplexity);
-            }
+            if (blockChain.getBlockChain().get(blockChain.getBlockChain().size() - 1).getCreationTime() <= INCREASE_TRIGGER)
+                blockChain.setComplexity(curComplexity + 1);
+            else if (blockChain.getBlockChain().get(blockChain.getBlockChain().size() - 1).getCreationTime() >= DECREASE_TRIGGER)
+                blockChain.setComplexity(curComplexity - 1);
+            curComplexity = blockChain.getComplexity();
+            blockChain.getBlockChain().get(blockChain.getBlockChain().size() - 1).setCurComplexity(curComplexity);
             prevHash = blockChain.getBlockChain().get(blockChain.getBlockChain().size() - 1).getHashOfThisBlock();
             minersDone = 0;
             createdBlock = false;
             generated.clear();
         }
         // Shutdown threads
-        for (int j = 0; j < miners.length; j++) {
-            miners[j].getExecutor().shutdown();
+        for (int j = 0; j < miners.size(); j++) {
+            miners.get(j).getExecutor().shutdown();
         }
 
-        // Validation + printing 5 blocks
+        // Validation + printing
         if (BCValidation.validateTheList(blockChain.getBlockChain()))
             System.out.println(blockChain.toString());
         else
