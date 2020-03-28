@@ -115,7 +115,7 @@ class Block implements Serializable {
                 "\nHash of the block:\n" + HashOfThisBlock +
                 "\nBlock was generating for " + creationTime + " second" + (creationTime == 1 ? "" : "s") +
                 (curComplexity == prevComplexity ? "\nN stays the same" : (curComplexity > prevComplexity ?
-                        "\nN was increased to " + curComplexity : "\nN was decreased by " + curComplexity)) + "\n";
+                "\nN was increased to " + curComplexity : "\nN was decreased by " + curComplexity)) + "\n";
     }
 }
 
