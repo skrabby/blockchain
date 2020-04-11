@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="650bd258-6111-4bc1-b379-03b4f0f5394b" name="Default Changelist" comment="" />
+    <list default="true" id="650bd258-6111-4bc1-b379-03b4f0f5394b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1ZlGnWWlNGUqwNkudSku8xrbH9e" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -38,53 +43,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <module name="Blockchain" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
-      <module name="Blockchain" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
@@ -103,6 +61,7 @@
       <updated>1585406434047</updated>
       <workItem from="1585406633849" duration="261000" />
       <workItem from="1585407551327" duration="2073000" />
+      <workItem from="1585492890240" duration="893000" />
     </task>
     <servers />
   </component>
@@ -118,29 +77,29 @@
       <screen x="0" y="0" width="1844" height="1080" />
     </state>
     <state x="727" y="241" key="#com.intellij.ide.util.MemberChooser/0.0.1844.1080@0.0.1844.1080" timestamp="1585426252708" />
-    <state width="1801" height="255" key="GridCell.Tab.0.bottom" timestamp="1585427548083">
+    <state width="1801" height="255" key="GridCell.Tab.0.bottom" timestamp="1585427781642">
       <screen x="0" y="0" width="1844" height="1080" />
     </state>
-    <state width="1801" height="255" key="GridCell.Tab.0.bottom/0.0.1844.1080@0.0.1844.1080" timestamp="1585427548083" />
-    <state width="1801" height="255" key="GridCell.Tab.0.center" timestamp="1585427548083">
+    <state width="1801" height="255" key="GridCell.Tab.0.bottom/0.0.1844.1080@0.0.1844.1080" timestamp="1585427781642" />
+    <state width="1801" height="255" key="GridCell.Tab.0.center" timestamp="1585427781641">
       <screen x="0" y="0" width="1844" height="1080" />
     </state>
-    <state width="1801" height="255" key="GridCell.Tab.0.center/0.0.1844.1080@0.0.1844.1080" timestamp="1585427548083" />
-    <state width="1801" height="255" key="GridCell.Tab.0.left" timestamp="1585427548083">
+    <state width="1801" height="255" key="GridCell.Tab.0.center/0.0.1844.1080@0.0.1844.1080" timestamp="1585427781641" />
+    <state width="1801" height="255" key="GridCell.Tab.0.left" timestamp="1585427781641">
       <screen x="0" y="0" width="1844" height="1080" />
     </state>
-    <state width="1801" height="255" key="GridCell.Tab.0.left/0.0.1844.1080@0.0.1844.1080" timestamp="1585427548083" />
-    <state width="1801" height="255" key="GridCell.Tab.0.right" timestamp="1585427548083">
+    <state width="1801" height="255" key="GridCell.Tab.0.left/0.0.1844.1080@0.0.1844.1080" timestamp="1585427781641" />
+    <state width="1801" height="255" key="GridCell.Tab.0.right" timestamp="1585427781641">
       <screen x="0" y="0" width="1844" height="1080" />
     </state>
-    <state width="1801" height="255" key="GridCell.Tab.0.right/0.0.1844.1080@0.0.1844.1080" timestamp="1585427548083" />
+    <state width="1801" height="255" key="GridCell.Tab.0.right/0.0.1844.1080@0.0.1844.1080" timestamp="1585427781641" />
     <state x="438" y="186" key="SettingsEditor" timestamp="1585407987916">
       <screen x="0" y="0" width="1844" height="1080" />
     </state>
     <state x="438" y="186" key="SettingsEditor/0.0.1844.1080@0.0.1844.1080" timestamp="1585407987916" />
-    <state x="577" y="368" key="com.intellij.ide.util.TipDialog" timestamp="1585407555754">
+    <state x="577" y="368" key="com.intellij.ide.util.TipDialog" timestamp="1585492948124">
       <screen x="0" y="0" width="1844" height="1080" />
     </state>
-    <state x="577" y="368" key="com.intellij.ide.util.TipDialog/0.0.1844.1080@0.0.1844.1080" timestamp="1585407555754" />
+    <state x="577" y="368" key="com.intellij.ide.util.TipDialog/0.0.1844.1080@0.0.1844.1080" timestamp="1585492948124" />
   </component>
 </project>

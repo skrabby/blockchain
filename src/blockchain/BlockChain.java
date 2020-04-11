@@ -35,14 +35,19 @@ class Block implements Serializable {
     private long minerCreated = -1;
     private int curComplexity = -1;
     private int prevComplexity;
+    private String blockData;
     private String HashOfPrevBlock;
     private String HashOfThisBlock;
 
-    public Block(long id, String hashOfPrevBlock, int prevComplexity) {
+
+    public Block(long id,  int prevComplexity, String hashOfPrevBlock, String blockData) {
         this.id = id;
         this.prevComplexity = prevComplexity;
-        HashOfPrevBlock = hashOfPrevBlock;
+        this.HashOfPrevBlock = hashOfPrevBlock;
+        this.blockData = blockData;
     }
+
+    public String getBlockData() { return blockData; }
 
     public int getCurComplexity() {
         return curComplexity;
@@ -113,7 +118,8 @@ class Block implements Serializable {
                 "\nMagic number: " + magicNumber +
                 "\nHash of the previous block:\n" + HashOfPrevBlock +
                 "\nHash of the block:\n" + HashOfThisBlock +
-                "\nBlock was generating for " + creationTime + " second" + (creationTime == 1 ? "" : "s") +
+                "\nBlock data:\n" + blockData +
+                "Block was generating for " + creationTime + " second" + (creationTime == 1 ? "" : "s") +
                 (curComplexity == prevComplexity ? "\nN stays the same" : (curComplexity > prevComplexity ?
                 "\nN was increased to " + curComplexity : "\nN was decreased by " + curComplexity)) + "\n";
     }

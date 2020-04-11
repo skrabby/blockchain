@@ -24,12 +24,14 @@ public class Miner {
 class BruteForceHash implements Runnable {
     private Block block;
     private String blockData;
+    private String prevBlockHash;
     private int complexity;
     private int minerID;
 
-    BruteForceHash(int minerID, int complexity, String blockData, Block block) {
+    BruteForceHash(int minerID, int complexity, Block block) {
         this.block = block;
-        this.blockData = blockData;
+        this.blockData = block.getBlockData();
+        this.prevBlockHash = block.getHashOfPrevBlock();
         this.complexity = complexity;
         this.minerID = minerID;
     }
@@ -44,7 +46,7 @@ class BruteForceHash implements Runnable {
             if (Main.generated.contains(magicNumber))
                 continue;
             Main.generated.add(magicNumber);
-            hashToTry = blockData + magicNumber;
+            hashToTry = blockData + prevBlockHash + magicNumber;
             thisHash = StringUtil.applySha256(hashToTry);
             if (BCValidation.tryHash(thisHash, complexity)) {
                 long endTime = System.nanoTime();
