@@ -3,6 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="650bd258-6111-4bc1-b379-03b4f0f5394b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blockchain/BlockChain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockchain/core/BlockChain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blockchain/ClientSimulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockchain/core/ClientSimulator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blockchain/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockchain/core/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blockchain/Miner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockchain/core/Miner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blockchain/SerializationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockchain/core/SerializationUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blockchain/Sha256.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockchain/core/Sha256.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,18 +30,31 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
-  <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="blockchain.Main" />
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="GenerateKeys" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="blockchain.keypair.GenerateKeys" />
       <module name="Blockchain" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="blockchain.*" />
+          <option name="PATTERN" value="blockchain.keypair.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="blockchain.core.Main" />
+      <module name="Blockchain" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="blockchain.core.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -46,6 +65,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.GenerateKeys" />
       </list>
     </recent_temporary>
   </component>
@@ -62,6 +82,7 @@
       <workItem from="1585406633849" duration="261000" />
       <workItem from="1585407551327" duration="2073000" />
       <workItem from="1585492890240" duration="893000" />
+      <workItem from="1586787032634" duration="32982000" />
     </task>
     <servers />
   </component>
@@ -69,30 +90,40 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="529" y="202" key="#Project_Structure" timestamp="1585406448790">
-      <screen x="0" y="0" width="1844" height="1080" />
+    <state x="533" y="202" key="#Project_Structure" timestamp="1586787037949">
+      <screen x="0" y="0" width="1857" height="1080" />
     </state>
     <state x="529" y="202" key="#Project_Structure/0.0.1844.1080@0.0.1844.1080" timestamp="1585406448790" />
-    <state x="727" y="241" key="#com.intellij.ide.util.MemberChooser" timestamp="1585426252708">
-      <screen x="0" y="0" width="1844" height="1080" />
+    <state x="533" y="202" key="#Project_Structure/0.0.1857.1080@0.0.1857.1080" timestamp="1586787037949" />
+    <state x="732" y="241" key="#com.intellij.ide.util.MemberChooser" timestamp="1586839914853">
+      <screen x="0" y="0" width="1857" height="1080" />
     </state>
     <state x="727" y="241" key="#com.intellij.ide.util.MemberChooser/0.0.1844.1080@0.0.1844.1080" timestamp="1585426252708" />
-    <state width="1801" height="255" key="GridCell.Tab.0.bottom" timestamp="1585427781642">
-      <screen x="0" y="0" width="1844" height="1080" />
+    <state x="732" y="241" key="#com.intellij.ide.util.MemberChooser/0.0.1857.1080@0.0.1857.1080" timestamp="1586839914853" />
+    <state width="1400" height="157" key="GridCell.Tab.0.bottom" timestamp="1586842196429">
+      <screen x="0" y="0" width="1857" height="1080" />
     </state>
     <state width="1801" height="255" key="GridCell.Tab.0.bottom/0.0.1844.1080@0.0.1844.1080" timestamp="1585427781642" />
-    <state width="1801" height="255" key="GridCell.Tab.0.center" timestamp="1585427781641">
-      <screen x="0" y="0" width="1844" height="1080" />
+    <state width="1400" height="157" key="GridCell.Tab.0.bottom/0.0.1857.1080@0.0.1857.1080" timestamp="1586842196429" />
+    <state width="1400" height="157" key="GridCell.Tab.0.center" timestamp="1586842196429">
+      <screen x="0" y="0" width="1857" height="1080" />
     </state>
     <state width="1801" height="255" key="GridCell.Tab.0.center/0.0.1844.1080@0.0.1844.1080" timestamp="1585427781641" />
-    <state width="1801" height="255" key="GridCell.Tab.0.left" timestamp="1585427781641">
-      <screen x="0" y="0" width="1844" height="1080" />
+    <state width="1400" height="157" key="GridCell.Tab.0.center/0.0.1857.1080@0.0.1857.1080" timestamp="1586842196429" />
+    <state width="1400" height="157" key="GridCell.Tab.0.left" timestamp="1586842196429">
+      <screen x="0" y="0" width="1857" height="1080" />
     </state>
     <state width="1801" height="255" key="GridCell.Tab.0.left/0.0.1844.1080@0.0.1844.1080" timestamp="1585427781641" />
-    <state width="1801" height="255" key="GridCell.Tab.0.right" timestamp="1585427781641">
-      <screen x="0" y="0" width="1844" height="1080" />
+    <state width="1400" height="157" key="GridCell.Tab.0.left/0.0.1857.1080@0.0.1857.1080" timestamp="1586842196429" />
+    <state width="1400" height="157" key="GridCell.Tab.0.right" timestamp="1586842196429">
+      <screen x="0" y="0" width="1857" height="1080" />
     </state>
     <state width="1801" height="255" key="GridCell.Tab.0.right/0.0.1844.1080@0.0.1844.1080" timestamp="1585427781641" />
+    <state width="1400" height="157" key="GridCell.Tab.0.right/0.0.1857.1080@0.0.1857.1080" timestamp="1586842196429" />
+    <state x="508" y="283" key="IDE.errors.dialog" timestamp="1586787874621">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state x="508" y="283" key="IDE.errors.dialog/0.0.1857.1080@0.0.1857.1080" timestamp="1586787874621" />
     <state x="438" y="186" key="SettingsEditor" timestamp="1585407987916">
       <screen x="0" y="0" width="1844" height="1080" />
     </state>
@@ -101,5 +132,13 @@
       <screen x="0" y="0" width="1844" height="1080" />
     </state>
     <state x="577" y="368" key="com.intellij.ide.util.TipDialog/0.0.1844.1080@0.0.1844.1080" timestamp="1585492948124" />
+    <state x="892" y="11" width="967" height="895" key="dock-window-1" timestamp="1586836342115">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state x="892" y="11" width="967" height="895" key="dock-window-1/0.0.1857.1080@0.0.1857.1080" timestamp="1586836342115" />
+    <state x="377" y="240" width="672" height="678" key="search.everywhere.popup" timestamp="1586837555127">
+      <screen x="0" y="0" width="1857" height="1080" />
+    </state>
+    <state x="377" y="240" width="672" height="678" key="search.everywhere.popup/0.0.1857.1080@0.0.1857.1080" timestamp="1586837555127" />
   </component>
 </project>

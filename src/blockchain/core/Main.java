@@ -1,10 +1,13 @@
-package blockchain;
+package blockchain.core;
 
 //import org.springframework.util.SerializationUtils;
-import javax.annotation.processing.Generated;
-import javax.xml.crypto.Data;
-import java.io.FileNotFoundException;
+import blockchain.keypair.GenerateKeys;
+import blockchain.receiver.VerifyMessage;
+import blockchain.sender.Message;
+
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.*;
 
 public class Main {
@@ -18,12 +21,6 @@ public class Main {
     // Generated Data to add to a new block
     private static volatile String GeneratedData = "no messages\n";
 
-    public static synchronized void setGeneratedData(String generatedData) { GeneratedData = generatedData; }
-
-    public static synchronized void addToGeneratedData(String data) { setGeneratedData(getGeneratedData() + data); }
-
-    public static synchronized String getGeneratedData() { return GeneratedData; }
-
     // Miners storage
     private static List<Miner> miners = new ArrayList<>();
 
@@ -34,13 +31,7 @@ public class Main {
     // A storage for used, but incorrect magicNumbers to optimize the search process
     public static volatile Set<Integer> generated = new HashSet<>();
 
-    public static void setCreatedBlock(boolean createdBlock) {
-        Main.createdBlock = createdBlock;
-    }
-
-    public static boolean isCreatedBlock() {
-        return createdBlock;
-    }
+    public static boolean isCreatedBlock() { return createdBlock; }
 
     public static synchronized void minersDoneIncrement() {
         minersDone++;
@@ -54,7 +45,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
         int curComplexity = START_COMPLEXITY;
         String prevHash;
         int bcSize;
@@ -83,8 +74,9 @@ public class Main {
 
         // Client simulator
         ClientSimulator[] clients = new ClientSimulator[5];
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             clients[i] = new ClientSimulator("CLIENT_" + i);
+            GenerateKeys.generateKeys(clients[i].getName());
         }
 
         // Miners creation
@@ -93,7 +85,9 @@ public class Main {
         }
         // Creating/Adding Blocks (+5 blocks)
         for (int i = bcSize; i < bcSize + 5; i++) {
-            Block block = new Block(i, curComplexity, prevHash, GeneratedData);
+            int maxSize = blockChain.getBlockChain().size();
+            Block block = new Block(i, curComplexity, prevHash, GeneratedData,
+                    maxSize > 0 ? blockChain.getBlockChain().get(maxSize - 1).getMaxIdentifier() : 0);
             // Miners invocation, Hash Brute-force
             for (int j = 0; j < miners.size(); j++) {
                 miners.get(j).getExecutor().submit(new BruteForceHash(miners.get(j).getID(), curComplexity, block));
@@ -111,16 +105,28 @@ public class Main {
             minersDone = 0;
             createdBlock = false;
             GeneratedData = "";
-            for (int k = 0; k < 5; k++) {
-                clients[k].sendMessageToBC("Some message");
+
+            // Clients fake chat data simulation
+            for (int k = 0; k < 3; k++) {
+                Message message = Message.sendMessage(clients[k].getName(), blockChain.getIdentifierIncrement());
+                block.maxIdentifierIncrement();
+                //  Verification of message by public key
+                String msg = VerifyMessage.verifyMessage(clients[k].getName()) + "\n";
+                if (!msg.equals("") && !msg.equals("NotVerifiedError") &&
+                        BCValidation.identifierIsBigger(BCValidation.parseIdentifier(msg), blockChain.getIdentifier() - 1)) {
+                    GeneratedData += clients[k].getName() + ": " + msg;
+                    block.addMessages(message);
+                }
             }
             generated.clear();
-            Thread.sleep(2000);
+         //   Thread.sleep(2000);
         }
         // Shutdown threads
         for (int j = 0; j < miners.size(); j++) {
             miners.get(j).getExecutor().shutdown();
         }
+        //for (int i = 0; i < 5; i++)
+        //VerifyMessage.verifyMessage(clients[i].getName());
 
         // Validation + printing
         if (BCValidation.validateTheList(blockChain.getBlockChain()))

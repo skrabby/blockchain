@@ -1,7 +1,6 @@
-package blockchain;
+package blockchain.core;
 
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

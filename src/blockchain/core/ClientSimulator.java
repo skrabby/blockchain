@@ -1,4 +1,4 @@
-package blockchain;
+package blockchain.core;
 
 public class ClientSimulator {
     String name = "Guest";
@@ -7,7 +7,7 @@ public class ClientSimulator {
         this.name = name;
     }
 
-    public void sendMessageToBC(String msg) {
-        Main.addToGeneratedData(name + ": " + msg + "\n");
+    public String getName() {
+        return name;
     }
 }

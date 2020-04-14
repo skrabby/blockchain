@@ -1,9 +1,29 @@
-package blockchain;
+package blockchain.core;
 
+import blockchain.sender.Message;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 class BCValidation {
+
+    public static boolean identifierIsBiggerMaxPrevBlock(List<Message> list, long maxIdentifier) {
+        for (Message tmp : list) {
+            if (tmp.getIdentifier() <= maxIdentifier)
+                return false;
+        }
+        return true;
+    }
+
+    public static boolean identifierIsBigger(long msgIdentifier, long bcIdentifier) {
+        return msgIdentifier >= bcIdentifier ? true : false;
+    }
+
+    public static long parseIdentifier(String message) {
+        String id = message.substring(message.indexOf('[') + 1, message.indexOf(']'));
+        return Long.parseLong(id.replaceAll("ID:", ""));
+    }
+
     public static boolean tryHash(String hash, int nZero) {
         for (int i = 0; i <= nZero; i++) {
             if (i == nZero){
@@ -18,7 +38,8 @@ class BCValidation {
 
     public static boolean validateTheList(List<Block> BlockChain) {
         for (int i = 0; i < BlockChain.size() - 1; i++) {
-            if (!(BlockChain.get(i + 1).getHashOfPrevBlock().equals(BlockChain.get(i).getHashOfThisBlock())))
+            if (!(BlockChain.get(i + 1).getHashOfPrevBlock().equals(BlockChain.get(i).getHashOfThisBlock())) ||
+                !(identifierIsBiggerMaxPrevBlock(BlockChain.get(i + 1).getMessages(), BlockChain.get(i).getMaxIdentifier())))
                 return false;
         }
         return true;
@@ -33,18 +54,31 @@ class Block implements Serializable {
     private long magicNumber;
     private long creationTime;
     private long minerCreated = -1;
+    private long maxIdentifier = 0;
     private int curComplexity = -1;
     private int prevComplexity;
+    private List<Message> messages = new ArrayList<>();
     private String blockData;
     private String HashOfPrevBlock;
     private String HashOfThisBlock;
 
-
-    public Block(long id,  int prevComplexity, String hashOfPrevBlock, String blockData) {
+    public Block(long id, int prevComplexity, String hashOfPrevBlock, String blockData, long maxIdentifier) {
         this.id = id;
         this.prevComplexity = prevComplexity;
         this.HashOfPrevBlock = hashOfPrevBlock;
         this.blockData = blockData;
+        if (maxIdentifier > 1)
+        this.maxIdentifier = maxIdentifier;
+    }
+
+    public void maxIdentifierIncrement() { maxIdentifier++; }
+
+    public long getMaxIdentifier() { return maxIdentifier; }
+
+    public List<Message> getMessages() { return messages; }
+
+    public void addMessages(Message message) {
+        messages.add(message);
     }
 
     public String getBlockData() { return blockData; }
@@ -61,9 +95,6 @@ class Block implements Serializable {
         return prevComplexity;
     }
 
-    public void setPrevComplexity(int prevComplexity) {
-        this.prevComplexity = prevComplexity;
-    }
 
     public long getTimeStamp() {
         return timeStamp;
@@ -124,9 +155,9 @@ class Block implements Serializable {
                 "\nN was increased to " + curComplexity : "\nN was decreased by " + curComplexity)) + "\n";
     }
 }
-
 class BlockChain implements Serializable {
     private static final long serialVersionUID = 1L;
+    private long identifier = 1;
     private List<Block> BlockChain;
     private int complexity;
 
@@ -134,6 +165,9 @@ class BlockChain implements Serializable {
         BlockChain = blockChain;
         this.complexity = complexity;
     }
+
+    public long getIdentifier() { return identifier; }
+    public long getIdentifierIncrement() { return identifier++; }
 
     public List<Block> getBlockChain() {
         return BlockChain;
