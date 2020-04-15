@@ -1,10 +1,6 @@
 package blockchain.sender;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -16,7 +12,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-public class Message {
+public class Message implements Serializable {
 	private List<byte[]> list;
 	private long identifier;
 

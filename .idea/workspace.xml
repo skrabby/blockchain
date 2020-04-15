@@ -2,17 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="650bd258-6111-4bc1-b379-03b4f0f5394b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/blockchain/core/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MessagesData/CLIENT_0/SignedData.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MessagesData/CLIENT_1/SignedData.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MessagesData/CLIENT_2/SignedData.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserKeys/CLIENT_0/privateKey" beforeDir="false" afterPath="$PROJECT_DIR$/UserKeys/CLIENT_0/privateKey" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserKeys/CLIENT_0/publicKey" beforeDir="false" afterPath="$PROJECT_DIR$/UserKeys/CLIENT_0/publicKey" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserKeys/CLIENT_1/privateKey" beforeDir="false" afterPath="$PROJECT_DIR$/UserKeys/CLIENT_1/privateKey" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserKeys/CLIENT_1/publicKey" beforeDir="false" afterPath="$PROJECT_DIR$/UserKeys/CLIENT_1/publicKey" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserKeys/CLIENT_2/privateKey" beforeDir="false" afterPath="$PROJECT_DIR$/UserKeys/CLIENT_2/privateKey" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserKeys/CLIENT_2/publicKey" beforeDir="false" afterPath="$PROJECT_DIR$/UserKeys/CLIENT_2/publicKey" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlockChain.data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataLogs/Client_0/SignedData.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DataLogs/Client_0/SignedData.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataLogs/Client_1/SignedData.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DataLogs/Client_1/SignedData.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataLogs/Client_2/SignedData.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DataLogs/Client_2/SignedData.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserKeys/Client_3/privateKey" beforeDir="false" afterPath="$PROJECT_DIR$/UserKeys/Client_3/privateKey" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserKeys/Client_3/publicKey" beforeDir="false" afterPath="$PROJECT_DIR$/UserKeys/Client_3/publicKey" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserKeys/Client_4/privateKey" beforeDir="false" afterPath="$PROJECT_DIR$/UserKeys/Client_4/privateKey" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserKeys/Client_4/publicKey" beforeDir="false" afterPath="$PROJECT_DIR$/UserKeys/Client_4/publicKey" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Blockchain/blockchain/core/Block.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Blockchain/blockchain/core/Block.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Blockchain/blockchain/core/BlockChain.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Blockchain/blockchain/core/BlockChain.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Blockchain/blockchain/core/BruteForceHash.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Blockchain/blockchain/core/BruteForceHash.class" afterDir="false" />
@@ -20,16 +18,21 @@
       <change beforePath="$PROJECT_DIR$/out/production/Blockchain/blockchain/core/Miner.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Blockchain/blockchain/core/Miner.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Blockchain/blockchain/sender/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Blockchain/blockchain/sender/Message.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/blockchain/core/BlockChain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockchain/core/BlockChain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blockchain/core/ClientSimulator.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/blockchain/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockchain/core/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/blockchain/core/Miner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockchain/core/Miner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blockchain/receiver/VerifyMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockchain/receiver/VerifyMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/blockchain/sender/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockchain/sender/Message.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -100,7 +103,7 @@
       <workItem from="1585492890240" duration="893000" />
       <workItem from="1586787032634" duration="33379000" />
       <workItem from="1586842756615" duration="812000" />
-      <workItem from="1586884146116" duration="13582000" />
+      <workItem from="1586884146116" duration="22176000" />
     </task>
     <servers />
   </component>
@@ -123,30 +126,30 @@
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state x="709" y="295" key="FileChooserDialogImpl/0.0.1858.1080@0.0.1858.1080" timestamp="1586895747710" />
-    <state width="1815" height="247" key="GridCell.Tab.0.bottom" timestamp="1586909067099">
+    <state width="1815" height="242" key="GridCell.Tab.0.bottom" timestamp="1586917865947">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state width="1801" height="255" key="GridCell.Tab.0.bottom/0.0.1844.1080@0.0.1844.1080" timestamp="1585427781642" />
     <state width="1400" height="203" key="GridCell.Tab.0.bottom/0.0.1857.1080@0.0.1857.1080" timestamp="1586842566011" />
-    <state width="1815" height="247" key="GridCell.Tab.0.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1586909067099" />
-    <state width="1815" height="247" key="GridCell.Tab.0.center" timestamp="1586909067099">
+    <state width="1815" height="242" key="GridCell.Tab.0.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1586917865947" />
+    <state width="1815" height="242" key="GridCell.Tab.0.center" timestamp="1586917865947">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state width="1801" height="255" key="GridCell.Tab.0.center/0.0.1844.1080@0.0.1844.1080" timestamp="1585427781641" />
     <state width="1400" height="203" key="GridCell.Tab.0.center/0.0.1857.1080@0.0.1857.1080" timestamp="1586842566011" />
-    <state width="1815" height="247" key="GridCell.Tab.0.center/0.0.1858.1080@0.0.1858.1080" timestamp="1586909067099" />
-    <state width="1815" height="247" key="GridCell.Tab.0.left" timestamp="1586909067099">
+    <state width="1815" height="242" key="GridCell.Tab.0.center/0.0.1858.1080@0.0.1858.1080" timestamp="1586917865947" />
+    <state width="1815" height="242" key="GridCell.Tab.0.left" timestamp="1586917865947">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state width="1801" height="255" key="GridCell.Tab.0.left/0.0.1844.1080@0.0.1844.1080" timestamp="1585427781641" />
     <state width="1400" height="203" key="GridCell.Tab.0.left/0.0.1857.1080@0.0.1857.1080" timestamp="1586842566011" />
-    <state width="1815" height="247" key="GridCell.Tab.0.left/0.0.1858.1080@0.0.1858.1080" timestamp="1586909067099" />
-    <state width="1815" height="247" key="GridCell.Tab.0.right" timestamp="1586909067099">
+    <state width="1815" height="242" key="GridCell.Tab.0.left/0.0.1858.1080@0.0.1858.1080" timestamp="1586917865947" />
+    <state width="1815" height="242" key="GridCell.Tab.0.right" timestamp="1586917865947">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state width="1801" height="255" key="GridCell.Tab.0.right/0.0.1844.1080@0.0.1844.1080" timestamp="1585427781641" />
     <state width="1400" height="203" key="GridCell.Tab.0.right/0.0.1857.1080@0.0.1857.1080" timestamp="1586842566011" />
-    <state width="1815" height="247" key="GridCell.Tab.0.right/0.0.1858.1080@0.0.1858.1080" timestamp="1586909067099" />
+    <state width="1815" height="242" key="GridCell.Tab.0.right/0.0.1858.1080@0.0.1858.1080" timestamp="1586917865947" />
     <state x="508" y="283" key="IDE.errors.dialog" timestamp="1586787874621">
       <screen x="0" y="0" width="1857" height="1080" />
     </state>

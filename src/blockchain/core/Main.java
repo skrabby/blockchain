@@ -1,14 +1,18 @@
 package blockchain.core;
 
-//import org.springframework.util.SerializationUtils;
 import blockchain.keypair.GenerateKeys;
 import blockchain.receiver.VerifyMessage;
+import blockchain.receiver.dataParser;
 import blockchain.sender.Message;
 
+import javax.swing.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
@@ -19,9 +23,9 @@ public class Main {
     private static final long INCREASE_TRIGGER = -1L; // complexity-increase trigger (in seconds, inclusive)
     private static final long DECREASE_TRIGGER = 2L; // complexity-decrease trigger (in seconds, inclusive)
     public static final long MINER_REWARD = 100L;
-
+    public static boolean EXIT_FLAG = false;
     // Generated Data to add to a new block
-    private static volatile String GeneratedData = "No transactions\n";
+    public static volatile String GeneratedData = "";
 
     // Miners storage
     private static List<Miner> miners = new ArrayList<>();
@@ -53,22 +57,28 @@ public class Main {
         String prevHash;
         int bcSize;
         // Deserialization
-        /*try {
+        try {
             blockChain = (BlockChain) SerializationUtils.deserialize(FILE_NAME);
             curComplexity = blockChain.getComplexity();
             System.out.println( "========================================\n" +
                                 "BlockChain has been loaded successfully!\n" +
-                                "========================================\n"
-            );
+                                "========================================\n");
+            // Validation + printing the loaded BlockChain
+            if (BCValidation.validateTheList(blockChain.getBlockChain()))
+                System.out.println(blockChain.toString());
+            else
+                System.out.println("BlockChain is corrupted!");
         }
         catch (FileNotFoundException fnf) {
             blockChain = new BlockChain(new ArrayList<Block>(), START_COMPLEXITY);
             System.out.println("The BlockChain is not created yet, let's create a new one!\n");
         }
         catch (IOException | ClassNotFoundException e) { e.printStackTrace(); }
-        */
+
         //To pass HyperSkill Online-Checker
-        blockChain = new BlockChain(new ArrayList<Block>(), START_COMPLEXITY);
+
+        /* blockChain = new BlockChain(new ArrayList<Block>(), START_COMPLEXITY); */
+
         bcSize = blockChain.getBlockChain().size();
         if (bcSize == 0)
             prevHash = "0";
@@ -86,10 +96,16 @@ public class Main {
         for (int i = 0; i < MINERS_NUMBER; i++) {
             miners.add(new Miner(i));
         }
-        // Creating/Adding Blocks (+15 blocks)
-        for (int i = bcSize; i < bcSize + 15; i++) {
+
+        // Reader init
+        ExecutorService reader = Executors.newSingleThreadExecutor();
+        reader.submit(new dataParser());
+        // Creating/Adding Blocks
+        while (!EXIT_FLAG) {
             int maxSize = blockChain.getBlockChain().size();
-            Block block = new Block(i, curComplexity, prevHash, GeneratedData,
+            if (GeneratedData.equals(""))
+                GeneratedData = "No transactions\n";
+            Block block = new Block(blockChain.getBlockChain().size(), curComplexity, prevHash, GeneratedData,
                     maxSize > 0 ? blockChain.getBlockChain().get(maxSize - 1).getMaxIdentifier() : 0);
             // Miners invocation, Hash Brute-force
             for (int j = 0; j < miners.size(); j++) {
@@ -109,8 +125,9 @@ public class Main {
             createdBlock = false;
             GeneratedData = "";
 
-            // Fake transactions simulation
-            for (int k = 0; k < 3; k++) {
+            // Fake transactions simulation with Private/Public Key pair and id validation
+
+            /*  for (int k = 0; k < 3; k++) {
                 int amount = ThreadLocalRandom.current().nextInt(5, 25);
                 int minerInd = ThreadLocalRandom.current().nextInt(0, 10);
                 int clientInd = ThreadLocalRandom.current().nextInt(0, 5);
@@ -129,10 +146,11 @@ public class Main {
                     GeneratedData += msg;
                     block.addMessages(message);
                 }
-            }
+            }*/
 
             // Clients fake chat data simulation
-            /*for (int k = 0; k < 3; k++) {
+
+            /*  for (int k = 0; k < 3; k++) {
                 Message message = Message.sendMessage(clients[k].getName(), blockChain.getIdentifierIncrement(), "some text");
                 block.maxIdentifierIncrement();
                 //  Verification of message by public key
@@ -142,30 +160,23 @@ public class Main {
                     GeneratedData += clients[k].getName() + ": " + msg;
                     block.addMessages(message);
                 }
-            }*/
+            } */
 
             generated.clear();
-            //Thread.sleep(2000);
+            if (BCValidation.validateTheList(blockChain.getBlockChain())) {
+                System.out.println(block.toString());
+                // Serialization
+                try { SerializationUtils.serialize(blockChain, FILE_NAME); }
+                catch (IOException e) { e.printStackTrace(); }
+            }
+            else
+                System.out.println("BlockChain is corrupted!");
+             Thread.sleep(5000);
         }
-        // Shutdown threads
+        // Shutting down threads
         for (int j = 0; j < miners.size(); j++) {
             miners.get(j).getExecutor().shutdown();
         }
-
-        // Validation + printing
-        if (BCValidation.validateTheList(blockChain.getBlockChain()))
-            System.out.println(blockChain.toString());
-        else
-            System.out.println("BlockChain is corrupted!");
-
-        // Serialization
-       /* try { SerializationUtils.serialize(blockChain, FILE_NAME);
-            System.out.println( "=======================================\n" +
-                                "BlockChain has been saved successfully!\n" +
-                                "=======================================\n");
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        reader.shutdown();
     }
 }

@@ -54,7 +54,8 @@ class Block implements Serializable {
     private long id;
     private long magicNumber;
     private long creationTime;
-    private Miner minerCreated;
+    private transient Miner minerCreated;
+    private long minerCreatedID;
     private long maxIdentifier = 0;
     private int curComplexity = -1;
     private int prevComplexity;
@@ -140,13 +141,14 @@ class Block implements Serializable {
 
     public void setMinerCreated(Miner minerCreated) {
         this.minerCreated = minerCreated;
+        minerCreatedID = minerCreated.getID();
     }
 
     @Override
     public String toString() {
         return "Block:" +
-                "\nCreated by miner # " + minerCreated.getID() +
-                "\nminer # " + minerCreated.getID() + " gets " + Main.MINER_REWARD + " VC" +
+                "\nCreated by miner # " + minerCreatedID +
+                "\nminer # " + minerCreatedID + " gets " + Main.MINER_REWARD + " VC" +
                 "\nId: " + id +
                 "\nTimestamp: " + timeStamp +
                 "\nMagic number: " + magicNumber +
@@ -154,8 +156,8 @@ class Block implements Serializable {
                 "\nHash of the block:\n" + HashOfThisBlock +
                 "\nBlock data:\n" + blockData +
                 "Block was generating for " + creationTime + " second" + (creationTime == 1 ? "" : "s") +
-                (curComplexity == prevComplexity ? "\nN stays the same" : (curComplexity > prevComplexity ?
-                "\nN was increased to " + curComplexity : "\nN was decreased by " + curComplexity)) + "\n";
+                (curComplexity == prevComplexity ? "\nBlockChain complexity stays the same" : (curComplexity > prevComplexity ?
+                "\nBlockChain complexity was increased to " + curComplexity : "\nBlockChain complexity was decreased by " + curComplexity)) + "\n";
     }
 }
 class BlockChain implements Serializable {

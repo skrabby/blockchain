@@ -1,10 +1,12 @@
 package blockchain.core;
 
+import java.beans.Transient;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Miner extends Client{
+public class Miner extends Client {
     private int ID;
 
     Miner(int ID){
