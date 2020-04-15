@@ -1,6 +1,7 @@
 package blockchain.core;
 
 import blockchain.sender.Message;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ class BCValidation {
     }
 
     public static boolean identifierIsBigger(long msgIdentifier, long bcIdentifier) {
-        return msgIdentifier >= bcIdentifier ? true : false;
+        return msgIdentifier >= bcIdentifier;
     }
 
     public static long parseIdentifier(String message) {
@@ -26,11 +27,10 @@ class BCValidation {
 
     public static boolean tryHash(String hash, int nZero) {
         for (int i = 0; i <= nZero; i++) {
-            if (i == nZero){
+            if (i == nZero) {
                 if (hash.charAt(i) == '0')
                     return false;
-            }
-            else if (hash.charAt(i) != '0')
+            } else if (hash.charAt(i) != '0')
                 return false;
         }
         return true;
@@ -39,7 +39,7 @@ class BCValidation {
     public static boolean validateTheList(List<Block> BlockChain) {
         for (int i = 0; i < BlockChain.size() - 1; i++) {
             if (!(BlockChain.get(i + 1).getHashOfPrevBlock().equals(BlockChain.get(i).getHashOfThisBlock())) ||
-                !(identifierIsBiggerMaxPrevBlock(BlockChain.get(i + 1).getMessages(), BlockChain.get(i).getMaxIdentifier())))
+                    !(identifierIsBiggerMaxPrevBlock(BlockChain.get(i + 1).getMessages(), BlockChain.get(i).getMaxIdentifier())))
                 return false;
         }
         return true;
@@ -70,21 +70,29 @@ class Block implements Serializable {
         this.HashOfPrevBlock = hashOfPrevBlock;
         this.blockData = blockData;
         if (maxIdentifier > 1)
-        this.maxIdentifier = maxIdentifier;
+            this.maxIdentifier = maxIdentifier;
     }
 
 
-    public void maxIdentifierIncrement() { maxIdentifier++; }
+    public void maxIdentifierIncrement() {
+        maxIdentifier++;
+    }
 
-    public long getMaxIdentifier() { return maxIdentifier; }
+    public long getMaxIdentifier() {
+        return maxIdentifier;
+    }
 
-    public List<Message> getMessages() { return messages; }
+    public List<Message> getMessages() {
+        return messages;
+    }
 
     public void addMessages(Message message) {
         messages.add(message);
     }
 
-    public String getBlockData() { return blockData; }
+    public String getBlockData() {
+        return blockData;
+    }
 
     public int getCurComplexity() {
         return curComplexity;
@@ -103,6 +111,10 @@ class Block implements Serializable {
         return timeStamp;
     }
 
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
     public long getId() {
         return id;
     }
@@ -115,20 +127,20 @@ class Block implements Serializable {
         return HashOfThisBlock;
     }
 
-    public long getMagicNumber() { return magicNumber; }
-
-    public long getCreationTime() { return creationTime; }
-
     public void setHashOfThisBlock(String hashOfThisBlock) {
         HashOfThisBlock = hashOfThisBlock;
     }
 
-    public void setTimeStamp(long timeStamp) {
-        this.timeStamp = timeStamp;
+    public long getMagicNumber() {
+        return magicNumber;
     }
 
     public void setMagicNumber(long magicNumber) {
         this.magicNumber = magicNumber;
+    }
+
+    public long getCreationTime() {
+        return creationTime;
     }
 
     public void setCreationTime(long creationTime) {
@@ -157,9 +169,10 @@ class Block implements Serializable {
                 "\nBlock data:\n" + blockData +
                 "Block was generating for " + creationTime + " second" + (creationTime == 1 ? "" : "s") +
                 (curComplexity == prevComplexity ? "\nBlockChain complexity stays the same" : (curComplexity > prevComplexity ?
-                "\nBlockChain complexity was increased to " + curComplexity : "\nBlockChain complexity was decreased by " + curComplexity)) + "\n";
+                        "\nBlockChain complexity was increased to " + curComplexity : "\nBlockChain complexity was decreased by " + curComplexity)) + "\n";
     }
 }
+
 class BlockChain implements Serializable {
     private static final long serialVersionUID = 1L;
     private long identifier = 1;
@@ -171,11 +184,20 @@ class BlockChain implements Serializable {
         this.complexity = complexity;
     }
 
-    public long getIdentifier() { return identifier; }
-    public long getIdentifierIncrement() { return identifier++; }
+    public long getIdentifier() {
+        return identifier;
+    }
+
+    public long getIdentifierIncrement() {
+        return identifier++;
+    }
 
     public List<Block> getBlockChain() {
         return BlockChain;
+    }
+
+    public void setBlockChain(List<Block> blockChain) {
+        BlockChain = blockChain;
     }
 
     public int getComplexity() {
@@ -186,12 +208,11 @@ class BlockChain implements Serializable {
         this.complexity = curComplexity;
     }
 
-    public void setBlockChain(List<Block> blockChain) { BlockChain = blockChain; }
-
     public synchronized void addBlock(Block block) {
         if (block != null)
             this.BlockChain.add(block);
     }
+
     @Override
     public String toString() {
         String ret = "";

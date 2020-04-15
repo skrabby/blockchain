@@ -1,19 +1,16 @@
 package blockchain.core;
 
 import blockchain.keypair.GenerateKeys;
-import blockchain.receiver.VerifyMessage;
 import blockchain.receiver.dataParser;
-import blockchain.sender.Message;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
     // Configuration
