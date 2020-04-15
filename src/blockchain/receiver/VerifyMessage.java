@@ -45,7 +45,7 @@ public class VerifyMessage {
 	}
 	
 	public static String verifyMessage(String userName) throws Exception{
-		new VerifyMessage("MessagesData/" + userName + "/SignedData.txt", "UserKeys/" + userName + "/publicKey");
+		new VerifyMessage("DataLogs/" + userName + "/SignedData.txt", "UserKeys/" + userName + "/publicKey");
 		return lastMessage;
 	}
 }

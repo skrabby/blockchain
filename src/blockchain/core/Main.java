@@ -9,17 +9,19 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
     // Configuration
     private static final String FILE_NAME = "BlockChain.data";
     private static final int MINERS_NUMBER = 10;
     private static final int START_COMPLEXITY = 0;
-    private static final long INCREASE_TRIGGER = 1L; // complexity-increase trigger (in seconds, inclusive)
-    private static final long DECREASE_TRIGGER = 1L; // complexity-decrease trigger (in seconds, inclusive)
+    private static final long INCREASE_TRIGGER = -1L; // complexity-increase trigger (in seconds, inclusive)
+    private static final long DECREASE_TRIGGER = 2L; // complexity-decrease trigger (in seconds, inclusive)
+    public static final long MINER_REWARD = 100L;
 
     // Generated Data to add to a new block
-    private static volatile String GeneratedData = "no messages\n";
+    private static volatile String GeneratedData = "No transactions\n";
 
     // Miners storage
     private static List<Miner> miners = new ArrayList<>();
@@ -41,6 +43,7 @@ public class Main {
         if (!createdBlock) {
             if (BCValidation.tryHash(block.getHashOfThisBlock(), blockChain.getComplexity()))
                 blockChain.addBlock(block);
+            block.getMinerCreated().addVirtualCoins(MINER_REWARD);
             createdBlock = true;
         }
     }
@@ -73,9 +76,9 @@ public class Main {
             prevHash = blockChain.getBlockChain().get(bcSize - 1).getHashOfThisBlock();
 
         // Client simulator
-        ClientSimulator[] clients = new ClientSimulator[5];
-        for (int i = 0; i < 3; i++) {
-            clients[i] = new ClientSimulator("CLIENT_" + i);
+        Client[] clients = new Client[5];
+        for (int i = 0; i < 5; i++) {
+            clients[i] = new Client("Client_" + i);
             GenerateKeys.generateKeys(clients[i].getName());
         }
 
@@ -83,14 +86,14 @@ public class Main {
         for (int i = 0; i < MINERS_NUMBER; i++) {
             miners.add(new Miner(i));
         }
-        // Creating/Adding Blocks (+5 blocks)
-        for (int i = bcSize; i < bcSize + 5; i++) {
+        // Creating/Adding Blocks (+15 blocks)
+        for (int i = bcSize; i < bcSize + 15; i++) {
             int maxSize = blockChain.getBlockChain().size();
             Block block = new Block(i, curComplexity, prevHash, GeneratedData,
                     maxSize > 0 ? blockChain.getBlockChain().get(maxSize - 1).getMaxIdentifier() : 0);
             // Miners invocation, Hash Brute-force
             for (int j = 0; j < miners.size(); j++) {
-                miners.get(j).getExecutor().submit(new BruteForceHash(miners.get(j).getID(), curComplexity, block));
+                miners.get(j).getExecutor().submit(new BruteForceHash(miners.get(j), curComplexity, block));
             }
             // Wait until the block is forged and all miners to be returned from the task
             while (!createdBlock || minersDone != MINERS_NUMBER) {}
@@ -106,9 +109,31 @@ public class Main {
             createdBlock = false;
             GeneratedData = "";
 
-            // Clients fake chat data simulation
+            // Fake transactions simulation
             for (int k = 0; k < 3; k++) {
-                Message message = Message.sendMessage(clients[k].getName(), blockChain.getIdentifierIncrement());
+                int amount = ThreadLocalRandom.current().nextInt(5, 25);
+                int minerInd = ThreadLocalRandom.current().nextInt(0, 10);
+                int clientInd = ThreadLocalRandom.current().nextInt(0, 5);
+
+                Client a, b;
+                if (Math.random() < 0.5) { a = miners.get(minerInd); b = clients[clientInd]; }
+                else { a = clients[clientInd]; b = miners.get(minerInd); }
+
+                String logs = a.sendCoins(b, amount);
+                Message message = Message.sendMessage(clients[k].getName(), blockChain.getIdentifierIncrement(), logs);
+                block.maxIdentifierIncrement();
+                //  Verification of message by public key
+                String msg = VerifyMessage.verifyMessage(clients[k].getName()) + "\n";
+                if (!msg.equals("") && !msg.equals("NotVerifiedError") &&
+                        BCValidation.identifierIsBigger(BCValidation.parseIdentifier(msg), blockChain.getIdentifier() - 1)) {
+                    GeneratedData += msg;
+                    block.addMessages(message);
+                }
+            }
+
+            // Clients fake chat data simulation
+            /*for (int k = 0; k < 3; k++) {
+                Message message = Message.sendMessage(clients[k].getName(), blockChain.getIdentifierIncrement(), "some text");
                 block.maxIdentifierIncrement();
                 //  Verification of message by public key
                 String msg = VerifyMessage.verifyMessage(clients[k].getName()) + "\n";
@@ -117,16 +142,15 @@ public class Main {
                     GeneratedData += clients[k].getName() + ": " + msg;
                     block.addMessages(message);
                 }
-            }
+            }*/
+
             generated.clear();
-         //   Thread.sleep(2000);
+            //Thread.sleep(2000);
         }
         // Shutdown threads
         for (int j = 0; j < miners.size(); j++) {
             miners.get(j).getExecutor().shutdown();
         }
-        //for (int i = 0; i < 5; i++)
-        //VerifyMessage.verifyMessage(clients[i].getName());
 
         // Validation + printing
         if (BCValidation.validateTheList(blockChain.getBlockChain()))

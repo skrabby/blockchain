@@ -4,10 +4,11 @@ import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Miner {
+public class Miner extends Client{
     private int ID;
 
     Miner(int ID){
+        super("Miner_" + ID);
         this.ID = ID;
     }
 
@@ -25,14 +26,14 @@ class BruteForceHash implements Runnable {
     private String blockData;
     private String prevBlockHash;
     private int complexity;
-    private int minerID;
+    private Miner miner;
 
-    BruteForceHash(int minerID, int complexity, Block block) {
+    BruteForceHash(Miner miner, int complexity, Block block) {
         this.block = block;
         this.blockData = block.getBlockData();
         this.prevBlockHash = block.getHashOfPrevBlock();
         this.complexity = complexity;
-        this.minerID = minerID;
+        this.miner = miner;
     }
 
     public void run() {
@@ -53,7 +54,7 @@ class BruteForceHash implements Runnable {
                 block.setHashOfThisBlock(thisHash);
                 block.setMagicNumber(magicNumber);
                 block.setCreationTime((endTime - startTime) / 1_000_000_000);
-                block.setMinerCreated(minerID);
+                block.setMinerCreated(miner);
                 Main.invokeAdder(block);
             }
         }

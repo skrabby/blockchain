@@ -48,12 +48,13 @@ class BCValidation {
 
 class Block implements Serializable {
     private static final long serialVersionUID = 1L;
+    private static final long MinerReward = 100L;
 
     private long timeStamp;
     private long id;
     private long magicNumber;
     private long creationTime;
-    private long minerCreated = -1;
+    private Miner minerCreated;
     private long maxIdentifier = 0;
     private int curComplexity = -1;
     private int prevComplexity;
@@ -70,6 +71,7 @@ class Block implements Serializable {
         if (maxIdentifier > 1)
         this.maxIdentifier = maxIdentifier;
     }
+
 
     public void maxIdentifierIncrement() { maxIdentifier++; }
 
@@ -132,18 +134,19 @@ class Block implements Serializable {
         this.creationTime = creationTime;
     }
 
-    public long getMinerCreated() {
+    public Miner getMinerCreated() {
         return minerCreated;
     }
 
-    public void setMinerCreated(long minerCreated) {
+    public void setMinerCreated(Miner minerCreated) {
         this.minerCreated = minerCreated;
     }
 
     @Override
     public String toString() {
         return "Block:" +
-                "\nCreated by miner # " + minerCreated +
+                "\nCreated by miner # " + minerCreated.getID() +
+                "\nminer # " + minerCreated.getID() + " gets " + Main.MINER_REWARD + " VC" +
                 "\nId: " + id +
                 "\nTimestamp: " + timeStamp +
                 "\nMagic number: " + magicNumber +

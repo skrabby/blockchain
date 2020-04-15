@@ -57,10 +57,10 @@ public class Message {
 	//	System.out.println("Your file is ready.");
 	}
 	
-	public static Message sendMessage(String userName, long identifier) throws InvalidKeyException, IOException, Exception{
-		String data = JOptionPane.showInputDialog("[" + userName + "] " + "Type your message here");
+	public static Message sendMessage(String userName, long identifier, String msg) throws InvalidKeyException, IOException, Exception{
+		String data = msg; //JOptionPane.showInputDialog("[" + userName + "] " + "Type your message here");
 		Message message = new Message(data, "UserKeys/" + userName + "/privateKey", identifier);
-		message.writeToFile("MessagesData/" + userName + "/SignedData.txt");
+		message.writeToFile("DataLogs/" + userName + "/SignedData.txt");
 		return message;
 	}
 }
