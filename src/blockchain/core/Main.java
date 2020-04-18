@@ -42,10 +42,11 @@ public class Main {
 
     public static synchronized void invokeAdder(Block block) {
         if (!createdBlock) {
-            if (BCValidation.tryHash(block.getHashOfThisBlock(), blockChain.getComplexity()))
+            if (BCValidation.tryHash(block.getHashOfThisBlock(), blockChain.getComplexity())) {
                 blockChain.addBlock(block);
-            block.getMinerCreated().addVirtualCoins(MINER_REWARD);
-            createdBlock = true;
+                block.getMinerCreated().addVirtualCoins(MINER_REWARD);
+                createdBlock = true;
+            }
         }
     }
 
